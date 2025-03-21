@@ -16,8 +16,12 @@ gax() {
   if [ ${#matches[@]} -eq 0 ]; then
     echo "No matches"
     return 1
+  elif [ ${#matches[@]} -eq 1 ]; then
+    msg="Added ${matches[1]}"
+  else
+    msg="Added: ${#matches[@]} files"
   fi
 
   git add "${matches[@]}"
-  echo "Added: ${#matches[@]} files"
+  echo $msg
 }
