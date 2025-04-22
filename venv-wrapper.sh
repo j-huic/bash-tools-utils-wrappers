@@ -4,6 +4,8 @@
 # $ venv myvirtualenv   # activates venv
 # $ deactivate          # deactivates venv
 # $ rmvenv myvirtualenv # removes venv
+# $ mkdotenv            # makes .env file
+# $ mkkernel            # makes corresponding kernel
 
 export VENV_HOME="$HOME/.virtualenvs"
 [[ -d $VENV_HOME ]] || mkdir $VENV_HOME
@@ -60,5 +62,14 @@ mkdotenv() {
     echo ".env file updated with PYTHON_PATH=$PYTHON_PATH"
   else
     echo ".env file already contains PYTHON_PATH"
+  fi
+}
+
+mkkernel() {
+  if [ -n "$VIRTUAL_ENV" ]; then
+    envname="${VIRTUAL_ENV##*/}"
+    python -m ipykernel install --user --name $envname
+  else 
+    echo "Activate the env before running"
   fi
 }
