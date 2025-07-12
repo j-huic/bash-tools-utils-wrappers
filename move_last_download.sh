@@ -7,16 +7,13 @@ if [ -z "$last_download" ]; then
 	exit 1
 fi
 
-if [ -z "$1" ]; then
-	echo "No destination provided"
+destination="./$last_download"
+
+if [ -e "$destination" ]; then
+	echo "Error: File $last_download already exists in current directory"
 	exit 1
 fi
 
-if [ -e "$1" ]; then
-	echo "Error: Destination already exists"
-	exit 1
-fi
+cp ~/Downloads/"$last_download" "$destination"
 
-cp ~/Downloads/"$last_download" "$1"
-
-echo "Moved $last_download to $1"
+echo "Moved $last_download to current directory"
